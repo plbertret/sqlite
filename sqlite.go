@@ -17,6 +17,15 @@ import (
 
 // DriverName is the default driver name for SQLite.
 const DriverName = "sqlite3"
+type Config struct {
+	DriverName string
+	DSN        string
+	Conn       gorm.ConnPool
+}
+
+func New(config Config) gorm.Dialector {
+	return &Dialector{DSN: config.DSN, DriverName: config.DriverName, Conn: config.Conn}
+}
 
 type Dialector struct {
 	DriverName string
